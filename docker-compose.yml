@@ -1,0 +1,24 @@
+services:
+  nodered:
+    image: nodered/node-red:4.0-debian
+    ports:
+      - 1880:1880
+    volumes:
+      - type: bind
+        source: ./data/nodered/
+        target: /data/
+        bind:
+          create_host_path: true
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0.18
+    ports:
+      - 1883:1883 
+      - 9001:9001
+    volumes:
+      - ./conf/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - type: bind
+        source: ./data/mosquitto/
+        target: /mosquitto/data/
+        bind:
+          create_host_path: true
